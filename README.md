@@ -1,5 +1,5 @@
-Homeschool
-----------
+Cassandra
+---------
 >Homeschool domain model using Cassandra and CQRS/ES.
 
 Object Model
