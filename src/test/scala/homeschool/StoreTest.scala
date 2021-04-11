@@ -3,9 +3,12 @@ package homeschool
 import java.util.concurrent.TimeUnit
 
 import com.datastax.driver.core.utils.UUIDs
-import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 
-class StoreTest extends FunSuite with BeforeAndAfterAll with Matchers {
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.BeforeAndAfterAll
+import org.scalatest.matchers.should.Matchers
+
+class StoreTest extends AnyFunSuite with BeforeAndAfterAll with Matchers {
   val store = new Store("127.0.0.1")
   store.load("/event.model.ddl.cql")
   store.load("/query.model.ddl.cql")

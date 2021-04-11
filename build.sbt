@@ -1,28 +1,13 @@
 name := "homeschool.cassandra"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.10"
+scalaVersion := "2.12.13"
 libraryDependencies ++= {
-  val cassandraVersion = "3.7.2"
+  val cassandraVersion = "3.11.0"
   Seq(
     "com.datastax.cassandra" % "cassandra-driver-core" % cassandraVersion,
     "com.datastax.cassandra" % "cassandra-driver-mapping" % cassandraVersion,
     "ch.qos.logback" % "logback-classic" % "1.2.3",
-    "org.scalatest" %% "scalatest" % "3.0.8" % Test
+    "org.scalatest" %% "scalatest" % "3.2.7" % Test
   )
 }
-scalacOptions ++= Seq(
-  "-language:postfixOps",
-  "-language:reflectiveCalls",
-  "-language:implicitConversions",
-  "-language:higherKinds",
-  "-feature",
-  "-Ywarn-unused-import",
-  "-Ywarn-unused",
-  "-Ywarn-dead-code",
-  "-unchecked",
-  "-deprecation",
-  "-Xfatal-warnings",
-  "-Xlint:missing-interpolator",
-  "-Xlint"
-)
