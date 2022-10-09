@@ -8,6 +8,6 @@ libraryDependencies ++= {
     "com.datastax.cassandra" % "cassandra-driver-core" % cassandraVersion,
     "com.datastax.cassandra" % "cassandra-driver-mapping" % cassandraVersion,
     "ch.qos.logback" % "logback-classic" % "1.4.3",
-    "org.scalatest" %% "scalatest" % "3.2.13" % Test
+    "org.scalatest" %% "scalatest" % "3.2.14" % Test
   )
 }
