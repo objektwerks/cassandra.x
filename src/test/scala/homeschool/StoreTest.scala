@@ -1,14 +1,14 @@
 package homeschool
 
-import java.util.concurrent.TimeUnit
-
 import com.datastax.driver.core.utils.UUIDs
+
+import java.util.concurrent.TimeUnit
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.matchers.should.Matchers
 
-class StoreTest extends AnyFunSuite with BeforeAndAfterAll with Matchers {
+class StoreTest extends AnyFunSuite with BeforeAndAfterAll with Matchers:
   val store = new Store("127.0.0.1")
   store.load("/event.model.ddl.cql")
   store.load("/query.model.ddl.cql")
@@ -47,4 +47,3 @@ class StoreTest extends AnyFunSuite with BeforeAndAfterAll with Matchers {
     queryRepository.listAssignments(student.id, grade.id, school.id, course.id).length shouldBe 1
     queryRepository.calculateScore(student.id, grade.id, school.id, course.id) shouldBe 100.0
   }
-}
