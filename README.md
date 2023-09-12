@@ -1,6 +1,6 @@
 Cassandra
 ---------
->Homeschool domain model using Cassandra and CQRS/ES.
+>Homeschool domain model using Cassandra and CQRS/ES using Scala 3.
 
 Object Model
 ------------
