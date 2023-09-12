@@ -3,7 +3,7 @@ organization := "objektwerks"
 version := "0.1-SNAPSHOT"
 scalaVersion := "3.3.1"
 libraryDependencies ++= {
-  val cassandraVersion = "3.11.5"
+  val cassandraVersion = "3.11.5" // Don't upgrade due to big changes with 4.0.0!!!
   Seq(
     "com.datastax.cassandra" % "cassandra-driver-core" % cassandraVersion,
     "com.datastax.cassandra" % "cassandra-driver-mapping" % cassandraVersion,
