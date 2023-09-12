@@ -2,9 +2,9 @@ package homeschool
 
 import com.datastax.driver.core.{BatchStatement, BoundStatement, ResultSetFuture, Session}
 
-import scala.collection.JavaConverters._
+import scala.collection.JavaConverters.*
 
-class EventRepository(asyncSession: Session) {
+class EventRepository(asyncSession: Session):
   val preparedOnTeacherEvent = asyncSession.prepare("insert into event.teacher (id, name, email, modified) values (?, ?, ?, ?)")
   val preparedOnTeacherQuery = asyncSession.prepare("insert into query.teacher (id, name, email, modified) values (?, ?, ?, ?)")
 
@@ -26,47 +26,38 @@ class EventRepository(asyncSession: Session) {
   val preparedOnAssignmentEvent = asyncSession.prepare("insert into event.assignment (id, student_id, grade_id, school_id, course_id, description, assigned, completed, score, modified) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
   val preparedOnAssignmentQuery = asyncSession.prepare("insert into query.assignment (id, student_id, grade_id, school_id, course_id, description, assigned, completed, score, modified) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
 
-  def batch(boundStatements: BoundStatement*): ResultSetFuture = {
+  def batch(boundStatements: BoundStatement*): ResultSetFuture =
     val batch = new BatchStatement()
     batch.addAll(boundStatements.asJava)
     asyncSession.executeAsync(batch)
-  }
 
-  def onTeacher(teacher: Teacher): ResultSetFuture = {
+  def onTeacher(teacher: Teacher): ResultSetFuture =
     batch(preparedOnTeacherEvent.bind(teacher.id, teacher.name, teacher.email, teacher.modified),
           preparedOnTeacherQuery.bind(teacher.id, teacher.name, teacher.email, teacher.modified))
-  }
 
-  def onStudent(student: Student): ResultSetFuture = {
+  def onStudent(student: Student): ResultSetFuture =
     batch(preparedOnStudentEvent.bind(student.id, student.name, student.email, student.born, student.modified),
           preparedOnStudentQuery.bind(student.id, student.name, student.email, student.born, student.modified))
-  }
 
-  def onGrade(grade: Grade): ResultSetFuture = {
+  def onGrade(grade: Grade): ResultSetFuture =
     val gradeAsJavaInteger = grade.grade.asInstanceOf[java.lang.Integer]
     batch(preparedOnGradeEvent.bind(grade.id, grade.studentId, gradeAsJavaInteger, grade.started, grade.completed, grade.modified),
           preparedOnGradeQuery.bind(grade.id, grade.studentId, gradeAsJavaInteger, grade.started, grade.completed, grade.modified))
-  }
 
-  def onSchool(school: School): ResultSetFuture = {
+  def onSchool(school: School): ResultSetFuture =
     batch(preparedOnSchoolEvent.bind(school.id, school.name, school.website, school.modified),
           preparedOnSchoolQuery.bind(school.id, school.name, school.website, school.modified))
-  }
 
-  def onCategory(category: Category): ResultSetFuture = {
+  def onCategory(category: Category): ResultSetFuture =
     batch(preparedOnCategoryEvent.bind(category.name, category.modified),
           preparedOnCategoryQuery.bind(category.name, category.modified))
-  }
 
-  def onCourse(course: Course): ResultSetFuture = {
+  def onCourse(course: Course): ResultSetFuture =
     batch(preparedOnCourseEvent.bind(course.id, course.schoolId, course.category, course.name, course.website, course.modified),
           preparedOnCourseQuery.bind(course.id, course.schoolId, course.category, course.name, course.website, course.modified))
-  }
 
-  def onAssignment(assignment: Assignment): ResultSetFuture = {
+  def onAssignment(assignment: Assignment): ResultSetFuture =
     val a = assignment
     val scoreAsJavaDouble = a.score.asInstanceOf[java.lang.Double]
     batch(preparedOnAssignmentEvent.bind(a.id, a.studentId, a.gradeId, a.schoolId, a.courseId, a.description, a.assigned, a.completed, scoreAsJavaDouble, a.modified),
           preparedOnAssignmentQuery.bind(a.id, a.studentId, a.gradeId, a.schoolId, a.courseId, a.description, a.assigned, a.completed, scoreAsJavaDouble, a.modified))
-  }
-}
