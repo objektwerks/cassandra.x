@@ -8,7 +8,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.matchers.should.Matchers
 
-class StoreTest extends AnyFunSuite with BeforeAndAfterAll with Matchers:
+final class StoreTest extends AnyFunSuite with BeforeAndAfterAll with Matchers:
   val store = new Store("127.0.0.1")
   store.load("/event.model.ddl.cql")
   store.load("/query.model.ddl.cql")
@@ -23,11 +23,9 @@ class StoreTest extends AnyFunSuite with BeforeAndAfterAll with Matchers:
   val course = Course(id = UUIDs.random(), school.id, category.name, name = "Basic Grammer", website = "rockey.gs.com/basic_grammer")
   val assignment = Assignment(id = UUIDs.random(), student.id, grade.id, school.id, course.id, description = "sentences", assigned = DateTime.asString, completed = DateTime.asString, score = 100.0)
 
-  override protected def afterAll(): Unit = {
-    store.close()
-  }
+  override protected def afterAll(): Unit = store.close()
 
-  test("event repository") {
+  test("event repository"):
     eventRepository.onTeacher(teacher).get(1, TimeUnit.SECONDS).wasApplied shouldBe true
     eventRepository.onStudent(student).get(1, TimeUnit.SECONDS).wasApplied shouldBe true
     eventRepository.onGrade(grade).get(1, TimeUnit.SECONDS).wasApplied shouldBe true
@@ -35,9 +33,8 @@ class StoreTest extends AnyFunSuite with BeforeAndAfterAll with Matchers:
     eventRepository.onCategory(category).get(1, TimeUnit.SECONDS).wasApplied shouldBe true
     eventRepository.onCourse(course).get(1, TimeUnit.SECONDS).wasApplied shouldBe true
     eventRepository.onAssignment(assignment).get(1, TimeUnit.SECONDS).wasApplied shouldBe true
-  }
 
-  test("query repository") {
+  test("query repository"):
     queryRepository.listTeachers().length shouldBe 1
     queryRepository.listStudents().length shouldBe 1
     queryRepository.listGrades(student.id).length shouldBe 1
@@ -46,4 +43,3 @@ class StoreTest extends AnyFunSuite with BeforeAndAfterAll with Matchers:
     queryRepository.listCourses(school.id).length shouldBe 1
     queryRepository.listAssignments(student.id, grade.id, school.id, course.id).length shouldBe 1
     queryRepository.calculateScore(student.id, grade.id, school.id, course.id) shouldBe 100.0
-  }
