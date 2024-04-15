@@ -7,7 +7,7 @@ libraryDependencies ++= {
   Seq(
     "com.datastax.cassandra" % "cassandra-driver-core" % cassandraVersion,
     "com.datastax.cassandra" % "cassandra-driver-mapping" % cassandraVersion,
-    "ch.qos.logback" % "logback-classic" % "1.5.3",
+    "ch.qos.logback" % "logback-classic" % "1.5.4",
     "org.scalatest" %% "scalatest" % "3.2.18" % Test
   )
 }
