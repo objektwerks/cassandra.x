@@ -1,7 +1,7 @@
 name := "homeschool.cassandra"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "3.8.0-RC5"
+scalaVersion := "3.8.0-RC6"
 libraryDependencies ++= {
   val cassandraVersion = "3.11.5" // Don't upgrade due to big changes with 4.0.0!!!
   Seq(
